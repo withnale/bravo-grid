@@ -1,6 +1,6 @@
 package com.bravostudiodev.grid.session;
 
-import org.openqa.grid.internal.Registry;
+import org.openqa.grid.internal.GridRegistry;
 import org.openqa.grid.internal.TestSession;
 
 import java.net.URL;
@@ -15,14 +15,14 @@ public class SeleniumSessions {
 
     private static final Pattern SESSION_ID_PATTERN = Pattern.compile("/session/([^/]+).*");
 
-    private final Registry registry;
+    private final GridRegistry GridRegistry;
 
-    public SeleniumSessions(Registry registry) {
-        this.registry = registry;
+    public SeleniumSessions(GridRegistry GridRegistry) {
+        this.GridRegistry = GridRegistry;
     }
 
     public URL getRemoteHostForSession(String sessionId) {
-        for (TestSession activeSession : registry.getActiveSessions()) {
+        for (TestSession activeSession : GridRegistry.getActiveSessions()) {
             if (sessionId.equals(activeSession.getExternalKey().getKey())) {
                 return activeSession.getSlot().getProxy().getRemoteHost();
             }
@@ -31,7 +31,7 @@ public class SeleniumSessions {
     }
 
     public void refreshTimeout(String sessionId) {
-        for (TestSession activeSession : registry.getActiveSessions()) {
+        for (TestSession activeSession : GridRegistry.getActiveSessions()) {
             if (sessionId.equals(activeSession.getExternalKey().getKey())) {
                 refreshTimeout(activeSession);
             }

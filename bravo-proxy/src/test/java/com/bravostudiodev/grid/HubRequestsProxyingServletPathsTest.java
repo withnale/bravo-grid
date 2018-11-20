@@ -16,7 +16,8 @@ import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.openqa.grid.internal.Registry;
+import org.openqa.grid.internal.GridRegistry;
+
 import org.openqa.grid.internal.TestSession;
 
 import javax.servlet.*;
@@ -45,7 +46,7 @@ public class HubRequestsProxyingServletPathsTest {
     @Mock
     private HttpServletResponse resp;
     @Mock
-    private Registry registry;
+    private GridRegistry GridRegistry;
 
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private TestSession activeSession1;
@@ -115,14 +116,14 @@ public class HubRequestsProxyingServletPathsTest {
     @Before
     public void setUp() throws IOException {
         httpServletRequestInputStream = IOUtils.toInputStream("httpServletRequestInputStream", "UTF-8");
-        servlet = new HubRequestsProxyingServlet(registry);
+        servlet = new HubRequestsProxyingServlet(GridRegistry);
         servlet.requestForwardingClientProvider = requestForwardingClientProvider;
 
         RequestForwardingClient requestForwardingClient = new RequestForwardingClient("test:5555", httpClientProvider);
 
         URL url = new URL("http://localhost:5555/");
 
-        when(registry.getActiveSessions()).thenReturn(Sets.newHashSet(activeSession1, activeSession2));
+        when(GridRegistry.getActiveSessions()).thenReturn(Sets.newHashSet(activeSession1, activeSession2));
         when(activeSession1.getExternalKey().getKey()).thenReturn("uuid1");
         when(activeSession1.getSlot().getProxy().getRemoteHost()).thenReturn(url);
         when(activeSession2.getExternalKey().getKey()).thenReturn("uuid2");

@@ -4,7 +4,7 @@ import com.bravostudiodev.grid.client.RequestForwardingClient;
 import com.google.common.annotations.VisibleForTesting;
 import com.bravostudiodev.grid.session.SeleniumSessions;
 import com.bravostudiodev.grid.client.RequestForwardingClientProvider;
-import org.openqa.grid.internal.Registry;
+import org.openqa.grid.internal.GridRegistry;
 import org.openqa.grid.web.servlet.RegistryBasedServlet;
 
 import javax.servlet.ServletException;
@@ -31,7 +31,7 @@ public class HubRequestsProxyingServlet extends RegistryBasedServlet {
         this(null);
     }
 
-    public HubRequestsProxyingServlet(Registry registry) {
+    public HubRequestsProxyingServlet(GridRegistry registry) {
         super(registry);
         requestForwardingClientProvider = new RequestForwardingClientProvider();
     }

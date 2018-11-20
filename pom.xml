@@ -17,7 +17,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <seleniumsrv.version>3.4.0</seleniumsrv.version>
+        <seleniumsrv.version>3.14.0</seleniumsrv.version>
     </properties>
 
     <build>

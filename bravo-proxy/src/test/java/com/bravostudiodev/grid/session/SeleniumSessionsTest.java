@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.openqa.grid.internal.ExternalSessionKey;
-import org.openqa.grid.internal.Registry;
+import org.openqa.grid.internal.DefaultGridRegistry;
 import org.openqa.grid.internal.TestSession;
 
 import java.time.Clock;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 public class SeleniumSessionsTest {
 
     @Mock
-    private Registry registry;
+    private DefaultGridRegistry registry;
     @Mock
     private ExternalSessionKey externalSessionKey;
 

@@ -21,7 +21,7 @@ import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
-import org.openqa.grid.internal.Registry;
+import org.openqa.grid.internal.GridRegistry;
 import org.openqa.grid.internal.TestSession;
 import org.seleniumhq.jetty9.server.AbstractNetworkConnector;
 import org.seleniumhq.jetty9.server.Server;
@@ -57,7 +57,7 @@ public class HubRequestsProxyingServletTest {
     @Mock
     private Function mockedFunction;
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
-    private Registry mockedRegistry;
+    private GridRegistry mockedGridRegistry;
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private TestSession mockedSession;
 
@@ -68,7 +68,7 @@ public class HubRequestsProxyingServletTest {
     @Before
     public void setUp() throws Exception {
         StubServlet stubServlet = new StubServlet(mockedFunction);
-        HubRequestsProxyingServlet hubRequestsProxyingServlet = new HubRequestsProxyingServlet(mockedRegistry);
+        HubRequestsProxyingServlet hubRequestsProxyingServlet = new HubRequestsProxyingServlet(mockedGridRegistry);
 
         hubServer = startServerForServlet(hubRequestsProxyingServlet, "/" + HubRequestsProxyingServlet.class.getSimpleName() + "/*");
         hubPort = ((AbstractNetworkConnector) hubServer.getConnectors()[0]).getLocalPort();
@@ -79,8 +79,8 @@ public class HubRequestsProxyingServletTest {
                 .build()
                 .toURL();
 
-        //Mock that registry contains session with url to redirect to
-        when(mockedRegistry.getActiveSessions()).thenReturn(Sets.newHashSet(mockedSession));
+        //Mock that GridRegistry contains session with url to redirect to
+        when(mockedGridRegistry.getActiveSessions()).thenReturn(Sets.newHashSet(mockedSession));
         when(mockedSession.getExternalKey().getKey()).thenReturn("session_id");
         when(mockedSession.getSlot().getProxy().getRemoteHost()).thenReturn(url);
     }

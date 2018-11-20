@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import io.sterodium.rmi.protocol.MethodInvocationDto;
 import io.sterodium.rmi.protocol.MethodInvocationResultDto;
 import io.sterodium.rmi.protocol.server.RmiFacade;
-import org.openqa.grid.internal.Registry;
+import org.openqa.grid.internal.GridRegistry;
 import org.openqa.grid.web.servlet.RegistryBasedServlet;
 
 import javax.servlet.ServletException;
@@ -32,7 +32,7 @@ public class BravoExtensionServlet extends RegistryBasedServlet {
         this(null);
     }
 
-    public BravoExtensionServlet(Registry registry) {
+    public BravoExtensionServlet(GridRegistry registry) {
         super(registry);
 
         rmiFacade = new RmiFacade();
